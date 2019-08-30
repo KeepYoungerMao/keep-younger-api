@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mao.mapper.data.AnimalMapper">
+
+    <select id="getAnimalByType" resultType="com.mao.entity.animal.SimpleAnimal">
+        SELECT id,`name`,type_name,picture FROM tt_animal
+        <if test="type > 0">
+            WHERE `type` = #{type}
+        </if>
+        LIMIT #{page},10
+    </select>
+
+    <select id="getAnimalById" resultType="com.mao.entity.animal.Animal">
+        SELECT * FROM tt_animal WHERE id = #{id}
+    </select>
+
+</mapper>

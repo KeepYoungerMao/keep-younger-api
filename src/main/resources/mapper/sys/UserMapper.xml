@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mao.mapper.sys.UserMapper" >
+
+    <!-- getUserByAppSecret() -->
+    <select id="getUserByAppSecret"
+            parameterType="java.lang.String"
+            resultType="com.mao.entity.auth.UserDo">
+        SELECT user_code,user_locked,user_login,user_app_key,user_app_secret
+        FROM sys_user WHERE user_app_secret = #{secret}
+    </select>
+
+    <!-- getUserByCode() -->
+    <select id="getUserByCode"
+            parameterType="java.lang.String"
+            resultType="com.mao.entity.auth.UserDo">
+        SELECT user_code,user_locked,user_login,user_app_key,user_app_secret
+        FROM sys_user WHERE user_code = #{code}
+    </select>
+
+    <!-- getUserInfoByCode() -->
+    <select id="getUserInfoByCode"
+            parameterType="java.lang.String"
+            resultType="com.mao.entity.auth.UserVo">
+        SELECT a.user_id,a.user_name,a.user_locked,a.user_login,a.user_email,
+        a.user_phone,b.role_description AS user_role
+        FROM sys_user AS a
+        LEFT JOIN sys_role AS b ON a.user_role = b.role_id
+        WHERE user_code = #{code}
+    </select>
+
+</mapper>

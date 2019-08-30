@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mao.mapper.sys.SystemRolePermissionMapper" >
+
+    <!-- getSystemRolePermission() -->
+    <select id="getSystemRolePermission"
+            parameterType="java.lang.String"
+            resultType="com.mao.entity.auth.SystemRolePermission">
+        SELECT IF(a.user_code IS NOT NULL,1,0) AS exist,a.user_locked AS locked,
+        IF(c.per_url IS NOT NULL,1,0) AS permission
+        FROM sys_user AS a LEFT JOIN sys_role_permission AS b ON a.user_role = b.role_id
+        LEFT JOIN sys_permission AS c ON b.per_id = c.per_id
+        WHERE a.user_code = #{code} AND c.per_url = #{permission}
+    </select>
+
+</mapper>
