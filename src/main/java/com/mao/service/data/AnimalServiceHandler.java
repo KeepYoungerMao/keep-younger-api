@@ -1,7 +1,6 @@
 package com.mao.service.data;
 
 import com.mao.entity.ResponseData;
-import com.mao.entity.ResponseEnum;
 import com.mao.entity.animal.Animal;
 import com.mao.entity.animal.AnimalEnum;
 import com.mao.entity.animal.SimpleAnimal;
@@ -36,8 +35,7 @@ public class AnimalServiceHandler implements AnimalService {
     public ResponseData animalList(String type, String page) {
         AnimalEnum animalEnum = getType(type);
         if (animalEnum == AnimalEnum.error)
-            return responseServiceHandler.error(ResponseEnum.BAD_REQUEST,
-                    "unknown type: "+type);
+            return responseServiceHandler.bad("unknown type: "+type);
         int _page = SU.isNumber(page) ? Integer.parseInt(page) : 1;
         _page = _page == 1 ? 0 : (_page - 1)*10;
         List<SimpleAnimal> list = animalMapper.getAnimalByType(animalEnum.getType(),_page);
@@ -65,8 +63,7 @@ public class AnimalServiceHandler implements AnimalService {
     @Override
     public ResponseData animalSrc(String id) {
         if (!SU.isNumber(id))
-            return responseServiceHandler.error(ResponseEnum.BAD_REQUEST,
-                    "cannot get msg by: "+ id);
+            return responseServiceHandler.bad("cannot get msg by: "+ id);
         int _id = Integer.parseInt(id);
         Animal animal = animalMapper.getAnimalById(_id);
         animal.setContent(SU.addP(animal.getContent()));

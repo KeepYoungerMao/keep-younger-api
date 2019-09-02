@@ -13,6 +13,15 @@ import org.springframework.stereotype.Service;
 public class ResponseServiceHandler {
 
     /**
+     * 请求错误消息返回
+     * @param msg 错误提示
+     * @return ResponseData
+     */
+    public ResponseData bad(String msg){
+        return ot(ResponseEnum.BAD_REQUEST,msg);
+    }
+
+    /**
      * 错误信息构建
      * @param type 错误类型
      * @param msg 错误信息
@@ -39,7 +48,7 @@ public class ResponseServiceHandler {
      * @param <T> data类型
      * @return ResponseData
      */
-    public <T> ResponseData ot(ResponseEnum type, T data){
+    private <T> ResponseData ot(ResponseEnum type, T data){
         return new ResponseData<>(type.getCode(), data);
     }
 

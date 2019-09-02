@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mao.mapper.data.BookMapper">
+
+    <select id="getBookList" resultType="com.mao.entity.book.SimpleBook">
+      SELECT boo_id,boo_name,boo_auth,boo_s_image,boo_dynasty
+      FROM tt_book
+      WHERE boo_id > 0
+      <if test="dynasty > 0">
+        AND boo_dynasty_id = #{dynasty}
+      </if>
+      <if test="type > 0">
+        AND boo_type_id = #{type}
+      </if>
+      LIMIT #{page},10
+    </select>
+
+    <select id="getBookById" resultType="com.mao.entity.book.Book">
+        SELECT boo_id,boo_name,boo_auth,boo_image,boo_intro,boo_type,boo_dynasty
+        FROM tt_book WHERE boo_id = #{id}
+    </select>
+
+    <select id="getChapterByBookId" resultType="com.mao.entity.book.Chapter">
+        SELECT * FROM tt_chapter WHERE cha_book_id = #{id} ORDER BY cha_cha_id
+    </select>
+
+    <select id="getChapterSrcById" resultType="java.lang.String">
+        SELECT tcr_intro FROM tt_chapter_src WHERE tcr_id = #{id}
+    </select>
+
+</mapper>

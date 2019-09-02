@@ -29,12 +29,17 @@ public class InterceptorBuilder implements WebMvcConfigurer {
 
     /**
      * 静态资源映射
+     * 静态资源配置时：
+     * 1.项目中的资源，资源路径前添加：classpath:
+     * 2.项目外的资源，资源路径前添加：file:
      * @param registry 注册器
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/readme.html")
                 .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("file:C:\\images\\");
     }
 
 }

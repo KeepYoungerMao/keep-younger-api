@@ -3,6 +3,7 @@ package com.mao.mvc.data;
 import com.mao.entity.ResponseData;
 import com.mao.service.data.AnimalService;
 import com.mao.service.data.BjxService;
+import com.mao.service.data.BookService;
 import com.mao.service.data.SpeciesService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,9 @@ public class DataController {
 
     @Resource
     private BjxService bjxService;
+
+    @Resource
+    private BookService bookService;
 
     /**
      * 获取物种树类信息
@@ -100,4 +104,47 @@ public class DataController {
         return bjxService.bjxSrc2(name);
     }
 
+    /**
+     * 获取书籍列表
+     * @param dynasty 朝代
+     * @param type 类型
+     * @param page 页码
+     * @return 书籍列表简要信息
+     */
+    @RequestMapping(value = "book/{dynasty}-{type}/{page}", method = RequestMethod.GET)
+    public ResponseData bookList(@PathVariable(name = "dynasty") String dynasty,
+                                 @PathVariable(name = "type") String type,
+                                 @PathVariable(name = "page") String page){
+        return bookService.bookList(dynasty,type,page);
+    }
+
+    /**
+     * 查询书籍详情信息
+     * @param id id
+     * @return 书籍详细信息
+     */
+    @RequestMapping(value = "book/{id}", method = RequestMethod.GET)
+    public ResponseData bookSrc(@PathVariable(name = "id") String id){
+        return bookService.bookSrc(id);
+    }
+
+    /**
+     * 获取书籍的所有章节，书籍章节列表不做分页
+     * @param id 书籍id
+     * @return 章节列表
+     */
+    @RequestMapping(value = "book/{id}/chapter", method = RequestMethod.GET)
+    public ResponseData bookChapterList(@PathVariable(name = "id") String id){
+        return bookService.bookChapterList(id);
+    }
+
+    /**
+     * 查询章节详细信息
+     * @param id 章节id
+     * @return 章节详细信息
+     */
+    @RequestMapping(value = "book/chapter/{id}", method = RequestMethod.GET)
+    public ResponseData bookChapterSrc(@PathVariable(name = "id") String id){
+        return bookService.bookChapterSrc(id);
+    }
 }

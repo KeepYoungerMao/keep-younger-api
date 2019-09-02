@@ -1,7 +1,6 @@
 package com.mao.service.data;
 
 import com.mao.entity.ResponseData;
-import com.mao.entity.ResponseEnum;
 import com.mao.entity.bjx.Surname;
 import com.mao.mapper.data.BjxMapper;
 import com.mao.service.ResponseServiceHandler;
@@ -32,8 +31,7 @@ public class BjxServiceHandler implements BjxService {
     @Override
     public ResponseData bjxList(String page) {
         if (!SU.isNumber(page))
-            return responseServiceHandler.error(ResponseEnum.BAD_REQUEST,
-                    "invalid param: " + page);
+            return responseServiceHandler.bad("invalid param: " + page);
         int _page = Integer.parseInt(page);
         _page = _page > 0 ? (_page == 1 ? 0 : (_page - 1)*10) : 0;
         List<Surname> list = bjxMapper.getSurname(_page);
@@ -48,8 +46,7 @@ public class BjxServiceHandler implements BjxService {
     @Override
     public ResponseData bjxSrc(String id) {
         if (!SU.isNumber(id))
-            return responseServiceHandler.error(ResponseEnum.BAD_REQUEST,
-                    "invalid param: " + id);
+            return responseServiceHandler.bad("invalid param: " + id);
         int _id = Integer.parseInt(id);
         Surname surname = bjxMapper.getSurnameById(_id);
         return responseServiceHandler.ok(surname);

@@ -721,10 +721,27 @@ public class SU {
         return age;
     }
 
+    /**
+     * 给文本增加 p 标签
+     * 变成 H5可读文本
+     * @param str 文本数据
+     * @return str
+     */
     public static String addP(String str){
-        if (str.contains("\r\n"))
-            return str.replaceAll("\r\n","<br>");
-        return str;
+        if (isEmpty(str))
+            return null;
+        StringBuilder sb = new StringBuilder();
+        if (str.contains("\r\n")){
+            String[] split = str.split("\r\n");
+            for (String s : split) {
+                if (isNotEmpty(s)){
+                    sb.append("<p>");
+                    sb.append(s);
+                    sb.append("</p>");
+                }
+            }
+        }
+        return sb.toString();
     }
 
     public static void main(String[] args) {
