@@ -8,7 +8,7 @@
 
 ### linux jar包运行
 
-###### 命令：
+##### 命令：
 nohup java -jar xxx.jar >xxx.log &
 
     nohup：不挂断运行
