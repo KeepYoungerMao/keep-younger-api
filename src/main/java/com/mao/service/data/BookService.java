@@ -19,4 +19,13 @@ public interface BookService {
 
     //获取章节详情
     ResponseData bookChapterSrc(String id);
+
+    //获取佛经列表
+    ResponseData buddhistList();
+
+    //查看佛经详情信息
+    ResponseData buddhistSrc(String id);
+
+    //查看佛经章节详情信息
+    ResponseData buddhistChapterSrc(String id);
 }

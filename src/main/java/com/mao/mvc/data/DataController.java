@@ -147,4 +147,33 @@ public class DataController {
     public ResponseData bookChapterSrc(@PathVariable(name = "id") String id){
         return bookService.bookChapterSrc(id);
     }
+
+    /**
+     * 获取所有佛经列表
+     * @return 佛经列表
+     */
+    @RequestMapping(value = "book/buddhist", method = RequestMethod.GET)
+    public ResponseData buddhistList(){
+        return bookService.buddhistList();
+    }
+
+    /**
+     * 查询佛经详情信息
+     * @param id id
+     * @return 佛经详情信息
+     */
+    @RequestMapping(value = "book/buddhist/{id}", method = RequestMethod.GET)
+    public ResponseData buddhistSrc(@PathVariable(name = "id") String id){
+        return bookService.buddhistSrc(id);
+    }
+
+    /**
+     * 查询佛经章节详情信息
+     * @param id id
+     * @return 佛经章节详情信息
+     */
+    @RequestMapping(value = "book/buddhist/chapter/{id}", method = RequestMethod.GET)
+    public ResponseData buddhistChapterSrc(@PathVariable(name = "id") String id){
+        return bookService.buddhistChapterSrc(id);
+    }
 }

@@ -1,8 +1,6 @@
 package com.mao.mapper.data;
 
-import com.mao.entity.book.Book;
-import com.mao.entity.book.Chapter;
-import com.mao.entity.book.SimpleBook;
+import com.mao.entity.book.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -29,4 +27,16 @@ public interface BookMapper {
 
     //根据id查询章节详情
     String getChapterSrcById(@Param("id") int id);
+
+    //获取所有佛经列表，简要列表
+    List<Buddhist> getBuddhist();
+
+    //根据id查询佛经详情
+    Buddhist getBuddhistById(@Param("id") int id);
+
+    //根据佛经id查询章节列表简单数据
+    List<BuddhistChapter> getBuddhistChapterBySId(@Param("id") int id);
+
+    //根据id查询章节详情原文
+    String getBuddhistChapterSrcById(@Param("id") int id);
 }

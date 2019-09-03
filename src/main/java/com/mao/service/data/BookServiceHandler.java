@@ -8,6 +8,7 @@ import com.mao.util.SU;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -113,5 +114,72 @@ public class BookServiceHandler implements BookService {
         int _id = Integer.parseInt(id);
         String text = bookMapper.getChapterSrcById(_id);
         return responseServiceHandler.ok(SU.addP(text));
+    }
+
+    /**
+     * 获取所有佛经列表
+     * @return 佛经列表
+     */
+    @Override
+    public ResponseData buddhistList() {
+        List<Buddhist> list = bookMapper.getBuddhist();
+        List<BuddhistData> data = new ArrayList<>();
+        for (Buddhist buddhist : list) {
+            addBuddhist(data,buddhist);
+        }
+        return responseServiceHandler.ok(data);
+    }
+
+    /**
+     * 给佛经分类
+     * @param data 分类后的数据接收类
+     * @param buddhist 佛经
+     */
+    private void addBuddhist(List<BuddhistData> data, Buddhist buddhist){
+        boolean add = true;
+        SimpleBuddhist sb = new SimpleBuddhist(buddhist.getBs_id(),
+                buddhist.getBs_name(),buddhist.getBs_image());
+        for (BuddhistData bd : data) {
+            if (bd.getType().equals(buddhist.getBs_type())){
+                bd.getList().add(sb);
+                add = false;
+                break;
+            }
+        }
+        if (add){
+            List<SimpleBuddhist> list = new ArrayList<>();
+            list.add(sb);
+            data.add(new BuddhistData(buddhist.getBs_type(),list));
+        }
+    }
+
+    /**
+     * 查询佛经详情信息
+     * @param id id
+     * @return 佛经详情信息
+     */
+    @Override
+    public ResponseData buddhistSrc(String id) {
+        if (!SU.isNumber(id))
+            return responseServiceHandler.bad("invalid param: " + id);
+        int _id = Integer.parseInt(id);
+        Buddhist buddhist = bookMapper.getBuddhistById(_id);
+        List<BuddhistChapter> list = bookMapper.getBuddhistChapterBySId(_id);
+        buddhist.setChapter(list);
+        return responseServiceHandler.ok(buddhist);
+    }
+
+    /**
+     * 查询佛经章节详情信息
+     * @param id id
+     * @return 佛经章节详情信息
+     */
+    @Override
+    public ResponseData buddhistChapterSrc(String id) {
+        if (!SU.isNumber(id))
+            return responseServiceHandler.bad("invalid param: " + id);
+        int _id = Integer.parseInt(id);
+        String text = bookMapper.getBuddhistChapterSrcById(_id);
+        return responseServiceHandler.ok(text);
     }
 }

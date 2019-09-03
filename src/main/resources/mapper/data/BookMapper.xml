@@ -29,4 +29,20 @@
         SELECT tcr_intro FROM tt_chapter_src WHERE tcr_id = #{id}
     </select>
 
+    <select id="getBuddhist" resultType="com.mao.entity.book.Buddhist">
+        SELECT bs_id,bs_name,bs_image,bs_type FROM tt_buddhist_sutra_class
+    </select>
+
+    <select id="getBuddhistById" resultType="com.mao.entity.book.Buddhist">
+        SELECT * FROM tt_buddhist_sutra_class WHERE bs_id = #{id}
+    </select>
+
+    <select id="getBuddhistChapterBySId" resultType="com.mao.entity.book.BuddhistChapter">
+        SELECT bs_id,bs_title FROM tt_buddhist_sutra WHERE bs_s_id = #{id}
+    </select>
+
+    <select id="getBuddhistChapterSrcById" resultType="java.lang.String">
+        SELECT bs_src FROM tt_buddhist_sutra WHERE bs_id = #{id}
+    </select>
+
 </mapper>
