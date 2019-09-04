@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mao.mapper.data.DrugMapper">
+
+    <select id="getCrudeDrugByType" resultType="com.mao.entity.drug.SimpleCrudeDrug">
+        SELECT id,title,intro,image,`name`,channel_tropism
+        FROM tt_crude_drug
+        <if test="type != null">
+            WHERE channel_tropism LIKE #{type}
+        </if>
+        LIMIT #{page},10
+    </select>
+
+    <select id="getCrudeDrugById" resultType="com.mao.entity.drug.CrudeDrug">
+        SELECT * FROM tt_crude_drug WHERE id = #{id}
+    </select>
+
+    <select id="getDrugByType" resultType="com.mao.entity.drug.Drug">
+        SELECT dru_id,dru_name,dru_image,dru_intro,dru_factory FROM tt_drug
+        WHERE dru_id > 0
+        <if test="fl > 0">
+            AND dru_fl = #{fl}
+        </if>
+        <if test="jx > 0">
+            AND dru_jx = #{jx}
+        </if>
+        <if test="lb > 0">
+            AND dru_lb = #{lb}
+        </if>
+        LIMIT #{page},10
+    </select>
+
+    <select id="getDrugSrcById" resultType="com.mao.entity.drug.DrugSrc">
+        SELECT * FROM tt_drug_src WHERE dru_id = #{id}
+    </select>
+
+</mapper>
