@@ -11,7 +11,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum BookEnum {
 
-    error(-1),                  //错误类型
     all(0),                     //所有
     biography(1),               //传记
     swordsman(2),               //武侠

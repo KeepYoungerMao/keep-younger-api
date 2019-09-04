@@ -11,7 +11,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum AnimalEnum {
 
-    error(-1),           //错误类型
     all(0),             //全部类型
     reptiles(1),        //爬行类
     invertebrates(2),   //无脊椎类

@@ -11,7 +11,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum BookDynastyEnum {
 
-    error(-1),                  //错误类型
     all(0),                     //所有
     XIANQIN(1),                 //先秦
     QIN(2),                     //秦

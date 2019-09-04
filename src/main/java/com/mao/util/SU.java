@@ -1,5 +1,7 @@
 package com.mao.util;
 
+import com.mao.entity.drug.TraitEnum;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -744,8 +746,23 @@ public class SU {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
+    /**
+     * 根据字符串获取enum的Enum类型
+     * @param t Enum类
+     * @param type 字符串
+     * @param <T> Enum类
+     * @return Enum类
+     */
+    public static <T extends Enum<T>> T getType(Class<T> t, String type){
+        try {
+            return Enum.valueOf(t,type);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
+    public static void main(String[] args) {
+        System.out.println(getType(TraitEnum.class,"warm"));
     }
 
 }

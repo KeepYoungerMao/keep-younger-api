@@ -1,10 +1,7 @@
 package com.mao.mvc.data;
 
 import com.mao.entity.ResponseData;
-import com.mao.service.data.AnimalService;
-import com.mao.service.data.BjxService;
-import com.mao.service.data.BookService;
-import com.mao.service.data.SpeciesService;
+import com.mao.service.data.*;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +28,9 @@ public class DataController {
 
     @Resource
     private BookService bookService;
+
+    @Resource
+    private DrugService drugService;
 
     /**
      * 获取物种树类信息
@@ -176,4 +176,58 @@ public class DataController {
     public ResponseData buddhistChapterSrc(@PathVariable(name = "id") String id){
         return bookService.buddhistChapterSrc(id);
     }
+
+    /**
+     * 查询中草药简要列表
+     * @param trait 四气
+     * @param flavor 五味
+     * @param tropism 归经
+     * @param page 页码
+     * @return 中草药简要列表
+     */
+    @RequestMapping(value = "crudeDrug/{trait}-{flavor}-{tropism}/{page}",
+            method = RequestMethod.GET)
+    public ResponseData crudeDrugList(@PathVariable(name = "trait") String trait,
+                                      @PathVariable(name = "flavor") String flavor,
+                                      @PathVariable(name = "tropism") String tropism,
+                                      @PathVariable(name = "page") String page){
+        return drugService.crudeDrugList(trait,flavor,tropism,page);
+    }
+
+    /**
+     * 查询中草药详细信息
+     * @param id id
+     * @return 中草药详细信息
+     */
+    @RequestMapping(value = "crudeDrug/{id}", method = RequestMethod.GET)
+    public ResponseData crudeDrugSrc(@PathVariable(name = "id") String id){
+        return drugService.crudeDrugSrc(id);
+    }
+
+    /**
+     * 获取成品药简要列表
+     * @param fl 分类 科室或用处划分
+     * @param jx 剂型 药品性状
+     * @param lb 类别 品种和等级划分
+     * @param page 页码
+     * @return 成品药简要列表
+     */
+    @RequestMapping(value = "drug/{fl}-{jx}-{lb}/{page}", method = RequestMethod.GET)
+    public ResponseData drugList(@PathVariable(name = "fl") String fl,
+                                 @PathVariable(name = "jx") String jx,
+                                 @PathVariable(name = "lb") String lb,
+                                 @PathVariable(name = "page") String page){
+        return drugService.drugList(fl,jx,lb,page);
+    }
+
+    /**
+     * 获取成品药详情信息
+     * @param id id
+     * @return 成品药详情信息
+     */
+    @RequestMapping(value = "drug/{id}", method = RequestMethod.GET)
+    public ResponseData drugSrc(@PathVariable(name = "id") String id){
+        return drugService.drugSrc(id);
+    }
+
 }

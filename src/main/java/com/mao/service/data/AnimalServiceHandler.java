@@ -33,26 +33,13 @@ public class AnimalServiceHandler implements AnimalService {
      */
     @Override
     public ResponseData animalList(String type, String page) {
-        AnimalEnum animalEnum = getType(type);
-        if (animalEnum == AnimalEnum.error)
+        AnimalEnum animalEnum = SU.getType(AnimalEnum.class,type);
+        if (null == animalEnum)
             return responseServiceHandler.bad("unknown type: "+type);
         int _page = SU.isNumber(page) ? Integer.parseInt(page) : 1;
         _page = _page == 1 ? 0 : (_page - 1)*10;
         List<SimpleAnimal> list = animalMapper.getAnimalByType(animalEnum.getType(),_page);
         return responseServiceHandler.ok(list);
-    }
-
-    /**
-     * 获取动物分类enum
-     * @param type 类型字符串
-     * @return 分类enum
-     */
-    private AnimalEnum getType(String type){
-        try {
-            return AnimalEnum.valueOf(type);
-        } catch (IllegalArgumentException e) {
-            return AnimalEnum.error;
-        }
     }
 
     /**

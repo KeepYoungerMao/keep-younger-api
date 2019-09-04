@@ -33,11 +33,11 @@ public class BookServiceHandler implements BookService {
      */
     @Override
     public ResponseData bookList(String dynasty, String type, String page) {
-        BookDynastyEnum dynastyEnum = getDynasty(dynasty);
-        if (dynastyEnum == BookDynastyEnum.error)
+        BookDynastyEnum dynastyEnum = SU.getType(BookDynastyEnum.class, dynasty);
+        if (null == dynastyEnum)
             return responseServiceHandler.bad("invalid param: " + dynasty);
-        BookEnum bookEnum = getType(type);
-        if (bookEnum == BookEnum.error)
+        BookEnum bookEnum = SU.getType(BookEnum.class, type);
+        if (null == bookEnum)
             return responseServiceHandler.bad("invalid param: " + type);
         if (!SU.isNumber(page))
             return responseServiceHandler.bad("invalid param: " + page);
@@ -46,32 +46,6 @@ public class BookServiceHandler implements BookService {
         List<SimpleBook> list = bookMapper.getBookList(
                 dynastyEnum.getType(), bookEnum.getType(), _page);
         return responseServiceHandler.ok(list);
-    }
-
-    /**
-     * 获取书籍朝代
-     * @param dynasty 朝代字符串
-     * @return BookDynastyEnum
-     */
-    private BookDynastyEnum getDynasty(String dynasty){
-        try {
-            return BookDynastyEnum.valueOf(dynasty);
-        } catch (IllegalArgumentException e) {
-            return BookDynastyEnum.error;
-        }
-    }
-
-    /**
-     * 获取书籍类型
-     * @param type 类型字符串
-     * @return BookEnum
-     */
-    private BookEnum getType(String type){
-        try {
-            return BookEnum.valueOf(type);
-        } catch (IllegalArgumentException e) {
-            return BookEnum.error;
-        }
     }
 
     /**
