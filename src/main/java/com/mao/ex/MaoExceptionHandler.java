@@ -3,6 +3,7 @@ package com.mao.ex;
 import com.mao.entity.ResponseData;
 import com.mao.entity.ResponseEnum;
 import com.mao.service.ResponseServiceHandler;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -36,6 +37,16 @@ public class MaoExceptionHandler {
             return responseServiceHandler.error(ResponseEnum.ERROR,
                     "server is busy. please try again later");
         }
+    }
+
+    /**
+     * 请求类型不支持异常捕捉
+     * @param e HttpRequestMethodNotSupportedException
+     * @return ResponseData
+     */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseData notSupportExceptionHandler(HttpRequestMethodNotSupportedException e){
+        return responseServiceHandler.bad(e.getMessage());
     }
 
 }
