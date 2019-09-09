@@ -30,9 +30,9 @@ public class BjxServiceHandler implements BjxService {
      */
     @Override
     public ResponseData bjxList(String page) {
-        if (!SU.isNumber(page))
+        Integer _page = SU.getNumber(page);
+        if (null == _page)
             return responseServiceHandler.bad("invalid param: " + page);
-        int _page = Integer.parseInt(page);
         _page = _page > 0 ? (_page == 1 ? 0 : (_page - 1)*10) : 0;
         List<Surname> list = bjxMapper.getSurname(_page);
         return responseServiceHandler.ok(list);
@@ -45,9 +45,9 @@ public class BjxServiceHandler implements BjxService {
      */
     @Override
     public ResponseData bjxSrc(String id) {
-        if (!SU.isNumber(id))
+        Integer _id = SU.getNumber(id);
+        if (null == _id)
             return responseServiceHandler.bad("invalid param: " + id);
-        int _id = Integer.parseInt(id);
         Surname surname = bjxMapper.getSurnameById(_id);
         return responseServiceHandler.ok(surname);
     }

@@ -42,9 +42,9 @@ public class DrugServiceHandler implements DrugService {
         MeridianTropismEnum _tropism = SU.getType(MeridianTropismEnum.class, tropism);
         if (null == _tropism)
             return responseServiceHandler.bad("unknown type: " + tropism);
-        if (!SU.isNumber(page))
+        Integer _page = SU.getNumber(page);
+        if (null == _page)
             return responseServiceHandler.bad("invalid param: " + page);
-        int _page = Integer.parseInt(page);
         _page = _page > 0 ? (_page == 1 ? 0 : (_page - 1)*10) : 0;
         String type;
         if (_trait == TraitEnum.all && _flavor == FlavorEnum.all
@@ -70,9 +70,9 @@ public class DrugServiceHandler implements DrugService {
      */
     @Override
     public ResponseData crudeDrugSrc(String id) {
-        if (!SU.isNumber(id))
-            return responseServiceHandler.bad("invalid id: " + id);
-        int _id = Integer.parseInt(id);
+        Integer _id = SU.getNumber(id);
+        if (null == _id)
+            return responseServiceHandler.bad("invalid param: " + id);
         CrudeDrug crudeDrug = drugMapper.getCrudeDrugById(_id);
         return responseServiceHandler.ok(crudeDrug);
     }
@@ -96,9 +96,9 @@ public class DrugServiceHandler implements DrugService {
         LbEnum _lb = SU.getType(LbEnum.class, lb);
         if (null == _lb)
             return responseServiceHandler.bad("unknown type: " + lb);
-        if (!SU.isNumber(page))
+        Integer _page = SU.getNumber(page);
+        if (_page == null)
             return responseServiceHandler.bad("invalid param: " + page);
-        int _page = Integer.parseInt(page);
         _page = _page > 0 ? (_page == 1 ? 0 : (_page - 1)*10) : 0;
         List<Drug> list = drugMapper.getDrugByType(_fl.getType(),_jx.getType(),_lb.getType(),_page);
         return responseServiceHandler.ok(list);
@@ -111,9 +111,9 @@ public class DrugServiceHandler implements DrugService {
      */
     @Override
     public ResponseData drugSrc(String id) {
-        if (!SU.isNumber(id))
+        Integer _id = SU.getNumber(id);
+        if (_id == null)
             return responseServiceHandler.bad("invalid id: " + id);
-        int _id = Integer.parseInt(id);
         DrugSrc drugSrc = drugMapper.getDrugSrcById(_id);
         return responseServiceHandler.ok(drugSrc);
     }

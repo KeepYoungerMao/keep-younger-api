@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mao.mapper.data.ManMapper">
+
+    <!-- TODO nation字段待处理 -->
+    <select id="getFamousByType" resultType="com.mao.entity.man.SimpleFamous">
+        SELECT id,`name`,title,image,life
+        FROM tt_famous_man
+        WHERE id > 0
+        <if test="pre != null">
+            AND pre = #{pre}
+        </if>
+        <if test="nation > 0">
+            AND nation = #{nation}
+        </if>
+        <!-- 标签中 大于号小于号会被认作标签括号因此需要做特殊处理 -->
+        <if test="center != 0">
+            AND `start` &lt;= #{center} AND `end` &gt;= #{center}
+        </if>
+        LIMIT 0,10
+    </select>
+
+    <select id="getFamousById" resultType="com.mao.entity.man.Famous">
+        SELECT id,pre,`name`,title,image,life,nation,intro,`text`
+        FROM tt_famous_man WHERE id = #{id}
+    </select>
+
+</mapper>

@@ -39,9 +39,9 @@ public class BookServiceHandler implements BookService {
         BookEnum bookEnum = SU.getType(BookEnum.class, type);
         if (null == bookEnum)
             return responseServiceHandler.bad("invalid param: " + type);
-        if (!SU.isNumber(page))
+        Integer _page = SU.getNumber(page);
+        if (null == _page)
             return responseServiceHandler.bad("invalid param: " + page);
-        int _page = Integer.parseInt(page);
         _page = _page > 0 ? (_page == 1 ? 0 : (_page - 1)*10) : 0;
         List<SimpleBook> list = bookMapper.getBookList(
                 dynastyEnum.getType(), bookEnum.getType(), _page);
@@ -55,9 +55,9 @@ public class BookServiceHandler implements BookService {
      */
     @Override
     public ResponseData bookSrc(String id) {
-        if (!SU.isNumber(id))
+        Integer _id = SU.getNumber(id);
+        if (null == _id)
             return responseServiceHandler.bad("invalid param: " + id);
-        int _id = Integer.parseInt(id);
         Book book = bookMapper.getBookById(_id);
         return responseServiceHandler.ok(book);
     }
@@ -69,9 +69,9 @@ public class BookServiceHandler implements BookService {
      */
     @Override
     public ResponseData bookChapterList(String id) {
-        if (!SU.isNumber(id))
+        Integer _id = SU.getNumber(id);
+        if (null == _id)
             return responseServiceHandler.bad("invalid param: " + id);
-        int _id = Integer.parseInt(id);
         List<Chapter> list = bookMapper.getChapterByBookId(_id);
         return responseServiceHandler.ok(list);
     }
@@ -83,9 +83,9 @@ public class BookServiceHandler implements BookService {
      */
     @Override
     public ResponseData bookChapterSrc(String id) {
-        if (!SU.isNumber(id))
+        Integer _id = SU.getNumber(id);
+        if (null == _id)
             return responseServiceHandler.bad("invalid param: " + id);
-        int _id = Integer.parseInt(id);
         String text = bookMapper.getChapterSrcById(_id);
         return responseServiceHandler.ok(SU.addP(text));
     }
@@ -134,9 +134,9 @@ public class BookServiceHandler implements BookService {
      */
     @Override
     public ResponseData buddhistSrc(String id) {
-        if (!SU.isNumber(id))
+        Integer _id = SU.getNumber(id);
+        if (null == _id)
             return responseServiceHandler.bad("invalid param: " + id);
-        int _id = Integer.parseInt(id);
         Buddhist buddhist = bookMapper.getBuddhistById(_id);
         List<BuddhistChapter> list = bookMapper.getBuddhistChapterBySId(_id);
         buddhist.setChapter(list);
@@ -150,9 +150,9 @@ public class BookServiceHandler implements BookService {
      */
     @Override
     public ResponseData buddhistChapterSrc(String id) {
-        if (!SU.isNumber(id))
+        Integer _id = SU.getNumber(id);
+        if (null == _id)
             return responseServiceHandler.bad("invalid param: " + id);
-        int _id = Integer.parseInt(id);
         String text = bookMapper.getBuddhistChapterSrcById(_id);
         return responseServiceHandler.ok(text);
     }

@@ -32,6 +32,9 @@ public class DataController {
     @Resource
     private DrugService drugService;
 
+    @Resource
+    private ManService manService;
+
     /**
      * 获取物种树类信息
      * @param id pid
@@ -228,6 +231,32 @@ public class DataController {
     @RequestMapping(value = "drug/{id}", method = RequestMethod.GET)
     public ResponseData drugSrc(@PathVariable(name = "id") String id){
         return drugService.drugSrc(id);
+    }
+
+    /**
+     * 根据首字母和国籍地区查询历史著名人物简要列表
+     * @param pre 首字母
+     * @param nation 国家或地区
+     * @param center 时间点
+     * @param page 页码
+     * @return 简要历史人物列表
+     */
+    @RequestMapping(value = "man/famous/{pre}_{nation}_{center}/{page}", method = RequestMethod.GET)
+    public ResponseData famousList(@PathVariable(name = "pre") String pre,
+                                   @PathVariable(name = "nation") String nation,
+                                   @PathVariable(name = "center") String center,
+                                   @PathVariable(name = "page") String page){
+        return manService.famousList(pre,nation,center,page);
+    }
+
+    /**
+     * 根据id查询历史人物详细信息
+     * @param id id
+     * @return 历史人物详细信息
+     */
+    @RequestMapping(value = "man/famous/{id}", method = RequestMethod.GET)
+    public ResponseData famousSrc(@PathVariable(name = "id") String id){
+        return manService.famousSrc(id);
     }
 
 }

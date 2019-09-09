@@ -1,7 +1,5 @@
 package com.mao.util;
 
-import com.mao.entity.drug.TraitEnum;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -417,6 +415,14 @@ public class SU {
         return true;
     }
 
+    public static Integer getNumber(String str){
+        try {
+            return Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
     /**
      * 中国 身份证识别
      * 可识别15位及18位身份证
@@ -762,7 +768,9 @@ public class SU {
     }
 
     public static void main(String[] args) {
-        System.out.println(getType(TraitEnum.class,"warm"));
+        //String a = "-abs-c";
+        //a = a.replaceFirst("-","");
+        System.out.println(Integer.parseInt("-20"));
     }
 
 }

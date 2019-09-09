@@ -36,8 +36,10 @@ public class AnimalServiceHandler implements AnimalService {
         AnimalEnum animalEnum = SU.getType(AnimalEnum.class,type);
         if (null == animalEnum)
             return responseServiceHandler.bad("unknown type: "+type);
-        int _page = SU.isNumber(page) ? Integer.parseInt(page) : 1;
-        _page = _page == 1 ? 0 : (_page - 1)*10;
+        Integer _page = SU.getNumber(page);
+        if (null == _page)
+            return responseServiceHandler.bad("invalid param: " + page);
+        _page = _page > 0 ? (_page == 1 ? 0 : (_page - 1)*10) : 0;
         List<SimpleAnimal> list = animalMapper.getAnimalByType(animalEnum.getType(),_page);
         return responseServiceHandler.ok(list);
     }
@@ -49,9 +51,9 @@ public class AnimalServiceHandler implements AnimalService {
      */
     @Override
     public ResponseData animalSrc(String id) {
-        if (!SU.isNumber(id))
+        Integer _id = SU.getNumber(id);
+        if (null == _id)
             return responseServiceHandler.bad("cannot get msg by: "+ id);
-        int _id = Integer.parseInt(id);
         Animal animal = animalMapper.getAnimalById(_id);
         animal.setContent(SU.addP(animal.getContent()));
         return responseServiceHandler.ok(animal);

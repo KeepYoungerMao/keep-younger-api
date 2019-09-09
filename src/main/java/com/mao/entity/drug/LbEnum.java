@@ -12,7 +12,15 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum LbEnum {
 
-    all(0);
+    all(0),
+    zby(1),         //中药保护品种一级
+    zbe(2),         //中药保护品种二级
+    bj(3),          //保健类药物、营养品、维生素等
+    gy(4),          //国家基本药物目录
+    wy(5),          //外用药物
+    jl(6),          //非处方药物（甲类）
+    yl(7),          //非处方药物（乙类）
+    qt(8);          //其它
 
     private int type;
 
