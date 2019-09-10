@@ -35,6 +35,9 @@ public class DataController {
     @Resource
     private ManService manService;
 
+    @Resource
+    private FoodService foodService;
+
     /**
      * 获取物种树类信息
      * @param id pid
@@ -257,6 +260,28 @@ public class DataController {
     @RequestMapping(value = "man/famous/{id}", method = RequestMethod.GET)
     public ResponseData famousSrc(@PathVariable(name = "id") String id){
         return manService.famousSrc(id);
+    }
+
+    /**
+     * 根据类型查询食物简要列表
+     * @param type 类型
+     * @param page 页码
+     * @return 食物简要列表
+     */
+    @RequestMapping(value = "food/{type}/{page}", method = RequestMethod.GET)
+    public ResponseData foodList(@PathVariable(name = "type") String type,
+                                 @PathVariable(name = "page") String page){
+        return foodService.foodList(type,page);
+    }
+
+    /**
+     * 根据id查询食物详情信息
+     * @param id id
+     * @return 食物详情信息
+     */
+    @RequestMapping(value = "food/{id}", method = RequestMethod.GET)
+    public ResponseData foodSrc(@PathVariable(name = "id") String id){
+        return foodService.foodSrc(id);
     }
 
 }

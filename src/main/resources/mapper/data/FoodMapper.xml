@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mao.mapper.data.FoodMapper">
+
+    <select id="getFoodByType" resultType="com.mao.entity.food.SimpleFood">
+        SELECT foo_id,foo_name,foo_image,foo_type,foo_intro_pre
+        FROM tt_food
+        <if test="type != 0">
+            WHERE foo_type_id = #{type}
+        </if>
+        LIMIT #{page},10
+    </select>
+
+    <select id="getFoodById" resultType="com.mao.entity.food.Food">
+        SELECT foo_id,foo_name,foo_image,foo_type,foo_intro_list,foo_yi,foo_ji,foo_intro
+        FROM tt_food WHERE foo_id = #{id}
+    </select>
+
+    <select id="getCollocationByFoodId" resultType="com.mao.entity.food.Collocation">
+        SELECT a.ref_id,a.ref_name,b.foo_image,a.yj,a.intro AS ref_image
+        FROM tt_food_collocation AS a
+        LEFT JOIN tt_food AS b ON a.ref_id = b.foo_id
+        WHERE src_id = #{id}
+    </select>
+
+</mapper>

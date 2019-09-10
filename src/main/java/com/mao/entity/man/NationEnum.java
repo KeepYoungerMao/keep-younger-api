@@ -13,7 +13,7 @@ import lombok.Getter;
 public enum NationEnum {
 
     all(0),             //所有分类，不作分类
-    filmLegend(1),      //电影、传说
+    filmLegend(1),      //影视、传说
     china(2),           //中国
     japan(3),           //日本
     america(4),         //美国
