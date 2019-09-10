@@ -1,10 +1,7 @@
 package com.mao.service.data;
 
 import com.mao.entity.ResponseData;
-import com.mao.entity.food.Collocation;
-import com.mao.entity.food.Food;
-import com.mao.entity.food.FoodEnum;
-import com.mao.entity.food.SimpleFood;
+import com.mao.entity.food.*;
 import com.mao.mapper.data.FoodMapper;
 import com.mao.service.ResponseServiceHandler;
 import com.mao.util.SU;
@@ -57,11 +54,15 @@ public class FoodServiceHandler implements FoodService {
             return responseServiceHandler.bad("invalid param: " + id);
         Food food = foodMapper.getFoodById(_id);
         if (null != food){
-            food.setFoo_intro(SU.addP(food.getFoo_intro()));
+            String intro = SU.addP(food.getFoo_intro());
+            String[] yi = SU.isEmpty(food.getFoo_yi()) ? new String[]{} : food.getFoo_yi().split(",");
+            String[] ji = SU.isEmpty(food.getFoo_ji()) ? new String[]{} : food.getFoo_ji().split(",");
             List<Collocation> collocations = foodMapper.getCollocationByFoodId(_id);
-            food.setCollocations(collocations);
+            FoodVo fv = new FoodVo(food.getFoo_id(),food.getFoo_name(),food.getFoo_image(),
+                    food.getFoo_type(),food.getFoo_intro_list(),yi,ji,intro,collocations);
+            return responseServiceHandler.ok(fv);
         }
-        return responseServiceHandler.ok(food);
+        return responseServiceHandler.ok(null);
     }
 
 }
