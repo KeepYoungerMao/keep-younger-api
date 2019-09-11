@@ -38,6 +38,9 @@ public class DataController {
     @Resource
     private FoodService foodService;
 
+    @Resource
+    private PhysiqueService physiqueService;
+
     /**
      * 获取物种树类信息
      * @param id pid
@@ -282,6 +285,16 @@ public class DataController {
     @RequestMapping(value = "food/{id}", method = RequestMethod.GET)
     public ResponseData foodSrc(@PathVariable(name = "id") String id){
         return foodService.foodSrc(id);
+    }
+
+    /**
+     * 根据名称查询体质详情
+     * @param name 名称
+     * @return 体质
+     */
+    @RequestMapping(value = "physique/{name}", method = RequestMethod.GET)
+    public ResponseData physique(@PathVariable(name = "name") String name){
+        return physiqueService.physique(name);
     }
 
 }
