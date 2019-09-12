@@ -297,4 +297,58 @@ public class DataController {
         return physiqueService.physique(name);
     }
 
+    /**
+     * 根据分类查询食物原材料简要列表
+     * @param type 分类
+     * @param page 页码
+     * @return 食物原材料简要列表
+     */
+    @RequestMapping(value = "food/ingredient/{type}/{page}", method = RequestMethod.GET)
+    public ResponseData foodIngredientList(@PathVariable(name = "type") String type,
+                                           @PathVariable(name = "page") String page){
+        return foodService.foodIngredientList(type,page);
+    }
+
+    /**
+     * 根据id查询食物原材料详细信息
+     * @param id id
+     * @return 食物原材料详细信息
+     */
+    @RequestMapping(value = "food/ingredient/{id}", method = RequestMethod.GET)
+    public ResponseData foodIngredientSrc(@PathVariable(name = "id") String id){
+        return foodService.foodIngredientSrc(id);
+    }
+
+    /**
+     * 根据食物原材料类别查看指定营养类别排行
+     * @param type 食物原材料类别
+     * @param kind 食物营养类别
+     * @return 食物原材料指定营养类别排行
+     */
+    @RequestMapping(value = "food/ingredient/{type}/nutrition/{kind}", method = RequestMethod.GET)
+    public ResponseData foodIngredientNutrition(@PathVariable(name = "type") String type,
+                                                @PathVariable(name = "kind") String kind){
+        return foodService.foodIngredientNutrition(type,kind);
+    }
+
+    /**
+     * 查询食谱简要列表
+     * @param page 页码
+     * @return 食谱简要列表
+     */
+    @RequestMapping(value = "food/recipe/list/{page}", method = RequestMethod.GET)
+    public ResponseData foodRecipeList(@PathVariable(name = "page") String page){
+        return foodService.foodRecipeList(page);
+    }
+
+    /**
+     * 根据id获取食谱详细信息
+     * @param id id
+     * @return 食谱详细信息
+     */
+    @RequestMapping(value = "food/recipe/{id}")
+    public ResponseData foodRecipeSrc(@PathVariable(name = "id") String id){
+        return foodService.foodRecipeSrc(id);
+    }
+
 }

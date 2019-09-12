@@ -16,11 +16,11 @@ public enum FoodEnum {
     fruit(2),               //水果
     starch(3),              //薯类淀粉
     fungi(4),               //菌藻类
-    animalMeat(5),          //畜肉类
+    meat(5),                //畜肉类
     poultry(6),             //禽肉类
     seafood(7),             //鱼虾蟹贝
     egg(8),                 //蛋类
-    frumentum(9),           //谷类
+    cereal(9),              //谷类
     beans(10),              //豆类
     nuts(11),               //坚果类
     milk(12),               //乳类

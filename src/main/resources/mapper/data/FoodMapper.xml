@@ -24,4 +24,34 @@
         WHERE src_id = #{id}
     </select>
 
+    <select id="getFoodIngredientByType" resultType="com.mao.entity.food.SimpleIngredient">
+        SELECT fi_id,fi_name,fi_alias,fi_s_image
+        FROM tt_food_ingredient
+        <if test="type != 0">
+            WHERE fi_class = #{type}
+        </if>
+        LIMIT #{page},10
+    </select>
+
+    <select id="getFoodIngredientById" resultType="com.mao.entity.food.Ingredient">
+        SELECT fi_id,fi_name,fi_alias,fi_b_image,fi_usage,fi_intro
+        FROM tt_food_ingredient WHERE fi_id = #{id}
+    </select>
+
+    <select id="getFoodIngredientNutrition" resultType="com.mao.entity.food.Nutrition">
+        SELECT fc_id,fc_src_id,fc_p_name,fc_name,fc_order,fc_value,fc_unit
+        FROM tt_food_ingredient_nutrition
+        WHERE fc_nutrition_class = #{kind} AND fc_ingredient_class = #{type}
+        ORDER BY fc_order ASC
+    </select>
+
+    <select id="getFoodRecipe" resultType="com.mao.entity.food.SimpleRecipe">
+        SELECT fr_id,fr_name,fr_image,fr_author,fr_author_image
+        FROM tt_food_recipe LIMIT #{page},12
+    </select>
+
+    <select id="getFoodRecipeById" resultType="com.mao.entity.food.Recipe">
+        SELECT * FROM tt_food_recipe WHERE fr_id = #{id}
+    </select>
+
 </mapper>
